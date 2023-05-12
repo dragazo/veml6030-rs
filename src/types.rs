@@ -99,27 +99,17 @@ pub struct InterruptStatus {
 
 /// Possible slave addresses
 #[derive(Debug, Clone, Copy)]
-pub enum SlaveAddr {
-    /// Default slave address
-    Default,
-    /// Alternative slave address providing bit value for the ADDR pin
-    Alternative(bool),
-}
-
-impl Default for SlaveAddr {
-    /// Default slave address
-    fn default() -> Self {
-        SlaveAddr::Default
+pub struct SlaveAddr(pub u8);
+impl SlaveAddr {
+    /// Gets the alternative I2C address
+    pub fn alternative() -> Self {
+        Self(0x48)
     }
 }
-
-impl SlaveAddr {
-    pub(crate) fn addr(self) -> u8 {
-        match self {
-            SlaveAddr::Default => 0x10,
-            SlaveAddr::Alternative(true) => 0x48,
-            SlaveAddr::Alternative(false) => 0x10,
-        }
+impl Default for SlaveAddr {
+    /// Gets the default I2C address
+    fn default() -> Self {
+        Self(0x10)
     }
 }
 
@@ -130,13 +120,12 @@ mod tests {
     #[test]
     fn can_get_default_address() {
         let addr = SlaveAddr::default();
-        assert_eq!(0x10, addr.addr());
+        assert_eq!(0x10, addr.0);
     }
 
     #[test]
     fn can_generate_alternative_addresses() {
-        assert_eq!(0x10, SlaveAddr::Alternative(false).addr());
-        assert_eq!(0x48, SlaveAddr::Alternative(true).addr());
+        assert_eq!(0x48, SlaveAddr::alternative().0);
     }
 
     #[test]

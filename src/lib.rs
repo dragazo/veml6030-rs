@@ -83,7 +83,7 @@
 //! use veml6030::{SlaveAddr, Veml6030};
 //!
 //! let dev = I2cdev::new("/dev/i2c-1").unwrap();
-//! let address = SlaveAddr::Alternative(true);
+//! let address = SlaveAddr::alternative();
 //! let mut sensor = Veml6030::new(dev, address);
 //! ```
 //!

@@ -43,7 +43,7 @@ impl<I2C> Veml6030<I2C> {
     pub fn new(i2c: I2C, address: SlaveAddr) -> Self {
         Veml6030 {
             i2c,
-            address: address.addr(),
+            address: address.0,
             config: Config {
                 bits: BitFlags::ALS_SD,
             },
