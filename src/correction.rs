@@ -1,7 +1,18 @@
 use crate::{Gain, IntegrationTime};
-// necessary only for targets without math function implementation
-#[allow(unused_imports)]
-use libm::F64Ext;
+
+#[allow(dead_code)]
+trait F64Ext {
+    fn powf(self, other: Self) -> Self;
+    fn sqrt(self) -> Self;
+}
+impl F64Ext for f64 {
+    fn powf(self, other: Self) -> Self {
+        libm::pow(self, other)
+    }
+    fn sqrt(self) -> Self {
+        libm::sqrt(self)
+    }
+}
 
 /// Calculate raw value for threshold applying compensation if necessary.
 ///
@@ -46,9 +57,9 @@ pub(crate) fn correct_high_lux(lux: f64) -> f64 {
 }
 
 fn inverse_high_lux_correction(lux: f64) -> f64 {
-    // Inverse of the polinomial used to correct for lux > 1000.
+    // Inverse of the polynomial used to correct for lux > 1000.
     // `y = 6.0135e-13*(x^4) - 9.3924e-9*(x^3) + 8.1488e-5*(x^2) + 1.0023*x`.
-    // This runs into underflow/overlow issues if trying to solve it directly.
+    // This runs into underflow/overflow issues if trying to solve it directly.
     // However, it can be solved for unknown coefficients and then
     // we put in the values.
     -C2 / (4.0 * C3)

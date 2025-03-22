@@ -1,10 +1,3 @@
-/// All possible errors in this crate
-#[derive(Debug)]
-pub enum Error<E> {
-    /// I²C bus error
-    I2C(E),
-}
-
 /// Integration time
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum IntegrationTime {

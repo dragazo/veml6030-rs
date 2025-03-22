@@ -16,12 +16,12 @@ edition = "2018"
 coveralls = { repository = "eldruin/veml6030-rs", branch = "master", service = "github" }
 
 [dependencies]
-embedded-hal = "0.2"
-libm = "0.1"
+embedded-hal = "1.0"
+libm = "0.2"
 
 [dev-dependencies]
-linux-embedded-hal = "0.3"
-embedded-hal-mock = "0.7"
+linux-embedded-hal = "0.4"
+embedded-hal-mock = "0.11"
 
 [profile.release]
 lto = true

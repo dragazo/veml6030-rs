@@ -251,7 +251,7 @@ pub use crate::correction::calculate_raw_threshold_value;
 pub use crate::device_impl::convert_raw_als_to_lux;
 mod types;
 pub use crate::types::{
-    Error, FaultCount, Gain, IntegrationTime, InterruptStatus, PowerSavingMode, SlaveAddr,
+    FaultCount, Gain, IntegrationTime, InterruptStatus, PowerSavingMode, SlaveAddr,
 };
 
 /// VEML6030 device driver
